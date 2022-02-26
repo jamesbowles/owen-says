@@ -66,31 +66,30 @@ function speak(text){
   }
 }
 
-addButton = function(text) {
+
+addButton = function(button) {
   buttons = document.getElementById('buttons');
   newButton = document.createElement('button');
-  newButton.innerText = text;
+
+  const input = button.form.querySelector('.txt');
+
+  newButton.innerText = input.value;
 
   newButton.addEventListener("click", (e)=>{ speak(e.target.innerText) });
   buttons.appendChild(newButton);
-  console.log(text);
+  console.log(input.value);
+
+  input.value = "";
+}
+
+clearForm = function() {
+  document.querySelector('.txt').value = '';
 }
 
 inputForm.onsubmit = function(event) {
   event.preventDefault();
-
   const input = event.target.querySelector('.txt');
-  const button = event.submitter.id;
-
-  if (button === "play") {
-    speak(input.value);
-  } else if (button == "clear" ) {
-    input.value = "";
-  } else if (button == "add" ) {
-    addButton(input.value);
-    input.value = "";
-  }
-
+  speak(input.value);
   inputTxt.blur();
 }
 
